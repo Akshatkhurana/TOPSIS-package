@@ -3,22 +3,26 @@ from setuptools import setup, find_packages
 setup(
     name="topsis_Akshat_102203644",
     packages=find_packages(),
-    version="0.1.0",       
-    author="Akshat Khurana",  # Your name
-    author_email="akhurana_be22@thapar.edu",  # Your email
+    version="1.1.5",
+    author="Akshat Khurana",
+    author_email="akhurana_be22@thapar.edu",
     description="A Python package to perform TOPSIS (Technique for Order Preference by Similarity to Ideal Solution).",
-    long_description=open("README.md").read(),  # Make sure you have a README.md
+    long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/Akshatkhurana/TOPSIS-package",  # Replace with your GitHub repo URL
-      # Automatically find packages in the folder
+    url="https://github.com/Akshatkhurana/TOPSIS-package",
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.6",  # Specify Python version compatibility
+    python_requires=">=3.6",
     install_requires=[
         "numpy",
-        "pandas" # Add dependencies here (e.g., pandas, numpy, etc.)
+        "pandas",
     ],
+    entry_points={
+        "console_scripts": [
+            "topsis=topsis_Akshat_102203644.topsis:topsis",  # Replace `main` with your function handling CLI commands
+        ],
+    },
 )

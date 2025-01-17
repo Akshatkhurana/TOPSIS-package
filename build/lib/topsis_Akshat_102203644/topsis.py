@@ -8,20 +8,19 @@ def calculate(matrix, weights, impacts):
     normalized_matrix = matrix / np.sqrt((matrix**2).sum(axis=0))
     weighted_matrix = normalized_matrix * weights
 
-    ideal_solution = np.where(impacts == 1, np.max(weighted_matrix, axis=0), np.min(weighted_matrix, axis=0))
-    negative_ideal_solution = np.where(impacts == 1, np.min(weighted_matrix, axis=0), np.max(weighted_matrix, axis=0))
-    
+    ideal_solution = np.where(impacts == +1, np.max(weighted_matrix, axis=0), np.min(weighted_matrix, axis=0))
+    negative_ideal_solution = np.where(impacts == +1, np.min(weighted_matrix, axis=0), np.max(weighted_matrix, axis=0))
+
     distance_to_ideal = np.sqrt(((weighted_matrix - ideal_solution)**2).sum(axis=1))
     distance_to_negative_ideal = np.sqrt(((weighted_matrix - negative_ideal_solution)**2).sum(axis=1))
-    
+
     scores = distance_to_negative_ideal / (distance_to_ideal + distance_to_negative_ideal)
-    
     rankings = scores.argsort()[::-1] + 1
     return scores, rankings
 
 def main():
     if len(sys.argv) != 5:
-        print("Usage: python _main_.py <InputDataSet.csv> <Weights> <Impacts> <Result.csv>")
+        print("Usage: python 102203644.py <InputDataSet.csv> <Weights> <Impacts> <Result.csv>")
         sys.exit(1)
 
     input_file = sys.argv[1]
@@ -39,24 +38,22 @@ def main():
             print("Error: Input file must contain at least three columns.")
             sys.exit(1)
         matrix = data.iloc[:, 1:].values
-        alternatives = data.iloc[:, 0].values
     except Exception as e:
         print(f"Error reading input file: {e}")
         sys.exit(1)
 
     try:
         weights = list(map(float, weights.split(',')))
-        impacts = list(map(int, impacts.split(',')))
+        impacts = list(map(float, impacts.split(',')))
+        if not all(impact in [+1, -1] for impact in impacts):
+            print("Error: Impacts must be +1 (benefit) or -1 (cost).")
+            sys.exit(1)
     except ValueError:
-        print("Error: Weights and impacts must be numeric values separated by commas.")
+        print("Error: Weights must be numeric values and impacts must be +1 or -1, separated by commas.")
         sys.exit(1)
 
     if len(weights) != matrix.shape[1] or len(impacts) != matrix.shape[1]:
         print("Error: Length of weights and impacts must match the number of criteria.")
-        sys.exit(1)
-
-    if not all(impact in [1, 0] for impact in impacts):
-        print("Error: Impacts must be 1 (benefit) or 0 (cost).")
         sys.exit(1)
 
     if not np.issubdtype(matrix.dtype, np.number):

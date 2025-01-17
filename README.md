@@ -16,7 +16,7 @@ This Python project implements the Technique for Order Preference by Similarity 
 2. Ensure you have Python installed with the necessary packages.
 3. Use the following command to run the program:
    ```bash
-   python topsis.py <InputDataSet.csv> <Weights> <Impacts> <ResultFile.csv>
+   python -m topsis_Akshat_102203644.topsis <InputDataSet.csv> <Weights> <Impacts> <ResultFile.csv>
 
 
 ## Input dataset
