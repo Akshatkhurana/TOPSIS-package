@@ -18,6 +18,8 @@ This Python project implements the Technique for Order Preference by Similarity 
    ```bash
    python -m topsis_Akshat_102203644.topsis <InputDataSet.csv> <Weights> <Impacts> <ResultFile.csv>
 
+You can access my package through this [link](https://pypi.org/project/topsis-Akshat-102203644/#description)
+
 
 ## Input dataset
 ![TOPSIS Example](images/ss1.png)
