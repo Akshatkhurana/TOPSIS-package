@@ -2,7 +2,7 @@ Metadata-Version: 2.2
 Name: topsis_Akshat_102203644
 Version: 0.1.0
 Summary: A Python package to perform TOPSIS (Technique for Order Preference by Similarity to Ideal Solution).
-Home-page: https://github.com/yourusername/topsis-akshat
+Home-page: https://github.com/Akshatkhurana/TOPSIS-package
 Author: Akshat Khurana
 Author-email: akhurana_be22@thapar.edu
 Classifier: Programming Language :: Python :: 3
@@ -11,6 +11,7 @@ Classifier: Operating System :: OS Independent
 Requires-Python: >=3.6
 Description-Content-Type: text/markdown
 Requires-Dist: numpy
+Requires-Dist: pandas
 Dynamic: author
 Dynamic: author-email
 Dynamic: classifier
