@@ -5,13 +5,10 @@ import os
 
 def calculate(matrix, weights, impacts):
     matrix = np.array(matrix, dtype=float)
-    print("Original matrix:\n", matrix)
 
     normalized_matrix = matrix / np.sqrt((matrix**2).sum(axis=0))
-    print("Normalized matrix:\n", normalized_matrix)
 
     weighted_matrix = normalized_matrix * weights
-    print("Weighted matrix:\n", weighted_matrix)
 
     ideal_solution = []
     negative_ideal_solution = []
@@ -26,17 +23,11 @@ def calculate(matrix, weights, impacts):
     ideal_solution = np.array(ideal_solution)
     negative_ideal_solution = np.array(negative_ideal_solution)
 
-    print("Ideal Solution:\n", ideal_solution)
-    print("Negative Ideal Solution:\n", negative_ideal_solution)
-
     distance_to_ideal = np.sqrt(((weighted_matrix - ideal_solution) ** 2).sum(axis=1))
     distance_to_negative_ideal = np.sqrt(((weighted_matrix - negative_ideal_solution) ** 2).sum(axis=1))
 
     scores = distance_to_negative_ideal / (distance_to_ideal + distance_to_negative_ideal)
     rankings = scores.argsort() + 1
-
-    print("Scores:\n", scores)
-    print("Rankings:\n", rankings)
 
     return scores, rankings
 
