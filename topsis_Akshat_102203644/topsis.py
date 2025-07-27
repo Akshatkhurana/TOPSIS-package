@@ -4,23 +4,46 @@ import numpy as np
 import os
 
 def calculate(matrix, weights, impacts):
-    matrix = np.array(matrix)
+    matrix = np.array(matrix, dtype=float)
+    print("Original matrix:\n", matrix)
+
     normalized_matrix = matrix / np.sqrt((matrix**2).sum(axis=0))
+    print("Normalized matrix:\n", normalized_matrix)
+
     weighted_matrix = normalized_matrix * weights
+    print("Weighted matrix:\n", weighted_matrix)
 
-    ideal_solution = np.where(impacts == +1, np.max(weighted_matrix, axis=0), np.min(weighted_matrix, axis=0))
-    negative_ideal_solution = np.where(impacts == +1, np.min(weighted_matrix, axis=0), np.max(weighted_matrix, axis=0))
+    ideal_solution = []
+    negative_ideal_solution = []
+    for i in range(weighted_matrix.shape[1]):
+        if impacts[i] == 1:
+            ideal_solution.append(np.max(weighted_matrix[:, i]))
+            negative_ideal_solution.append(np.min(weighted_matrix[:, i]))
+        else:
+            ideal_solution.append(np.min(weighted_matrix[:, i]))
+            negative_ideal_solution.append(np.max(weighted_matrix[:, i]))
 
-    distance_to_ideal = np.sqrt(((weighted_matrix - ideal_solution)**2).sum(axis=1))
-    distance_to_negative_ideal = np.sqrt(((weighted_matrix - negative_ideal_solution)**2).sum(axis=1))
+    ideal_solution = np.array(ideal_solution)
+    negative_ideal_solution = np.array(negative_ideal_solution)
+
+    print("Ideal Solution:\n", ideal_solution)
+    print("Negative Ideal Solution:\n", negative_ideal_solution)
+
+    distance_to_ideal = np.sqrt(((weighted_matrix - ideal_solution) ** 2).sum(axis=1))
+    distance_to_negative_ideal = np.sqrt(((weighted_matrix - negative_ideal_solution) ** 2).sum(axis=1))
 
     scores = distance_to_negative_ideal / (distance_to_ideal + distance_to_negative_ideal)
-    rankings = scores.argsort()[::-1] + 1
+    rankings = scores.argsort() + 1
+
+    print("Scores:\n", scores)
+    print("Rankings:\n", rankings)
+
     return scores, rankings
+
 
 def main():
     if len(sys.argv) != 5:
-        print("Usage: python 102203644.py <InputDataSet.csv> <Weights> <Impacts> <Result.csv>")
+        print("Usage: python topsis.py <InputDataSet.csv> <Weights> <Impacts> <Result.csv>")
         sys.exit(1)
 
     input_file = sys.argv[1]
@@ -64,7 +87,7 @@ def main():
 
     try:
         data["Score"] = scores
-        data["Rank"] = rankings
+        data["Rank"] = data["Score"].rank(ascending=False, method="min").astype(int)
         data.to_csv(result_file, index=False)
         print(f"Results saved to {result_file}")
     except Exception as e:
