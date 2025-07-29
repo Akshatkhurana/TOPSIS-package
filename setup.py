@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name="topsis_Akshat_102203644",
     packages=find_packages(),
-    version="1.1.5",
+    version="1.2.5",
     author="Akshat Khurana",
     author_email="akhurana_be22@thapar.edu",
     description="A Python package to perform TOPSIS (Technique for Order Preference by Similarity to Ideal Solution).",
