@@ -17,20 +17,19 @@ This Python project implements the Technique for Order Preference by Similarity 
    pip install topsis-Akshat-102203644
 2. Prepare you data in python file app.py
    ```bash
-from topsis_Akshat_102203644.topsis import calculate
-import pandas as pd
+   from topsis_Akshat_102203644.topsis import calculate
+   import pandas as pd
 
-# Load your dataset
-data = pd.read_csv("102203644-data.csv")
+   # Load your dataset
+   data = pd.read_csv("102203644-data.csv")
 
-# Extract only the criteria columns (excluding model name or ID)
-matrix = data.iloc[:, 1:].values
+   # Extract only the criteria columns (excluding model name or ID)
+   matrix = data.iloc[:, 1:].values
 
-# Define weights and impacts
-weights = [1, 1, 1, 1, 1]                    
-impacts = [+1, +1, +1, +1, +1]               # +1 for benefit, -1 for cost
+   # Define weights and impacts
+   weights = [1, 1, 1, 1, 1]                    
+   impacts = [+1, +1, +1, +1, +1]               # +1 for benefit, -1 for cost
 
-3. 
 3. Use the following command to run the program:
    ```bash
    python app.py
